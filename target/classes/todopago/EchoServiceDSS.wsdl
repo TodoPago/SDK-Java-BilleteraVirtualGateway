@@ -1,0 +1,125 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:ns0="http://ws.wso2.org/dataservice" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://ws.wso2.org/dataservice">
+<wsdl:types>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ws.wso2.org/dataservice">
+<xs:element name="DataServiceFault">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="current_params" type="xs:string"/>
+<xs:element name="current_request_name" type="xs:string"/>
+<xs:element name="nested_exception" type="xs:string"/>
+<xs:element name="source_data_service">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="location" type="xs:string"/>
+<xs:element name="default_namespace" type="xs:string"/>
+<xs:element name="description" type="xs:string"/>
+<xs:element name="data_service_name" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="ds_code" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="REQUEST_STATUS" type="xs:string"/>
+<xs:element name="DATA_SERVICE_RESPONSE">
+<xs:complexType>
+<xs:sequence>
+<xs:any minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="echo_operation">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="message" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="echo_response" type="ns0:echo_response"/>
+<xs:complexType name="echo_response">
+<xs:sequence>
+<xs:element minOccurs="0" name="response" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+</wsdl:types>
+<wsdl:message name="echo_operationRequest">
+<wsdl:part name="parameters" element="ns0:echo_operation"/>
+</wsdl:message>
+<wsdl:message name="echo_operationResponse">
+<wsdl:part name="parameters" element="ns0:echo_response"/>
+</wsdl:message>
+<wsdl:message name="DataServiceFault">
+<wsdl:part name="parameters" element="ns0:DataServiceFault"/>
+</wsdl:message>
+<wsdl:portType name="EchoServiceDSSPortType">
+<wsdl:operation name="echo_operation">
+<wsdl:input message="ns0:echo_operationRequest" wsaw:Action="urn:echo_operation"/>
+<wsdl:output message="ns0:echo_operationResponse" wsaw:Action="urn:echo_operationResponse"/>
+<wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:echo_operationDataServiceFault"/>
+</wsdl:operation>
+</wsdl:portType>
+<wsdl:binding name="EchoServiceDSSSoap11Binding" type="ns0:EchoServiceDSSPortType">
+<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<wsdl:operation name="echo_operation">
+<soap:operation soapAction="urn:echo_operation" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="DataServiceFault">
+<soap:fault use="literal" name="DataServiceFault"/>
+</wsdl:fault>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:binding name="EchoServiceDSSSoap12Binding" type="ns0:EchoServiceDSSPortType">
+<soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<wsdl:operation name="echo_operation">
+<soap12:operation soapAction="urn:echo_operation" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="DataServiceFault">
+<soap12:fault use="literal" name="DataServiceFault"/>
+</wsdl:fault>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:binding name="EchoServiceDSSHttpBinding" type="ns0:EchoServiceDSSPortType">
+<http:binding verb="POST"/>
+<wsdl:operation name="echo_operation">
+<http:operation location="echo_operation"/>
+<wsdl:input>
+<mime:content type="text/xml" part="parameters"/>
+</wsdl:input>
+<wsdl:output>
+<mime:content type="text/xml" part="parameters"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:service name="EchoServiceDSS">
+<wsdl:port name="EchoServiceDSSHttpsSoap11Endpoint" binding="ns0:EchoServiceDSSSoap11Binding">
+<soap:address location="https://10.123.4.71:8243/services/t/1.2/EchoServiceDSS.EchoServiceDSSHttpsSoap11Endpoint"/>
+</wsdl:port>
+<wsdl:port name="EchoServiceDSSHttpSoap11Endpoint" binding="ns0:EchoServiceDSSSoap11Binding">
+<soap:address location="http://10.123.4.71:8280/services/t/1.2/EchoServiceDSS.EchoServiceDSSHttpSoap11Endpoint"/>
+</wsdl:port>
+<wsdl:port name="EchoServiceDSSHttpsSoap12Endpoint" binding="ns0:EchoServiceDSSSoap12Binding">
+<soap12:address location="https://10.123.4.71:8243/services/t/1.2/EchoServiceDSS.EchoServiceDSSHttpsSoap12Endpoint"/>
+</wsdl:port>
+<wsdl:port name="EchoServiceDSSHttpSoap12Endpoint" binding="ns0:EchoServiceDSSSoap12Binding">
+<soap12:address location="http://10.123.4.71:8280/services/t/1.2/EchoServiceDSS.EchoServiceDSSHttpSoap12Endpoint"/>
+</wsdl:port>
+<wsdl:port name="EchoServiceDSSHttpsEndpoint" binding="ns0:EchoServiceDSSHttpBinding">
+<http:address location="https://10.123.4.71:8243/services/t/1.2/EchoServiceDSS.EchoServiceDSSHttpsEndpoint"/>
+</wsdl:port>
+<wsdl:port name="EchoServiceDSSHttpEndpoint" binding="ns0:EchoServiceDSSHttpBinding">
+<http:address location="http://10.123.4.71:8280/services/t/1.2/EchoServiceDSS.EchoServiceDSSHttpEndpoint"/>
+</wsdl:port>
+</wsdl:service>
+</wsdl:definitions>

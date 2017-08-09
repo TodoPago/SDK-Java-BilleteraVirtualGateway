@@ -1,0 +1,9 @@
+CMD
+wsimport.exe  [.wsdl] -b [binding.xml] -d [directory output files] -keep 
+
+Sample
+c/Archivos\ de\ programa/Java/jdk1.7.0_79/bin/wsimport.exe C:\\...\\src\\main\\resources\\Authorize.wsdl -b C:\\...\\src\\main\\resources\\AuthorizeBinding.xml -d C:\\...\\src\\main\\java\\ar\\com\\todopago\\api\\authorize -keep
+
+C:\Program Files\Java\jdk1.7.0_80\bin
+
+ c/Archivos\ de\ programa/Java
