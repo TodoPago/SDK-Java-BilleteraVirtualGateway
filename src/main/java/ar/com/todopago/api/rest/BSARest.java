@@ -30,13 +30,14 @@ public class BSARest extends RestConnector {
 	private final String BVTP_NOTIFICATION_PUSH = "tx/v1/bsa";
 	
 	//SOLO PARA QA
-	private final String BVTP_QA = "https://portalqa.visa2.com.ar/t/1.2/api/";
-	private final String BVTP_QALOCAL = "https://127.0.0.1:3000/";
+	//private final String BVTP_QA = "https://portalqa.visa2.com.ar/t/1.2/api/";
+	//private final String BVTP_QALOCAL = "https://127.0.0.1:3000/";
 									
 	public TransactionBSA transaction(TransactionBSA transaction) throws ConnectionException, ResponseException {
 		
 		StringBuilder sb = new StringBuilder(endpoint + BVTP_TRANSACTION);
 				
+		/*		
 		if(endpoint.equals(BVTP_QA)){
 			sb.replace(0, sb.length(), "https://172.16.2.105/ms/" + BVTP_TRANSACTION);
 		}
@@ -44,6 +45,7 @@ public class BSARest extends RestConnector {
 		if(endpoint.equals(BVTP_QALOCAL)){
 			sb.replace(0, sb.length(), endpoint + "bsa/transactions/api/" + BVTP_TRANSACTION);
 		}
+		*/
 		
 		logger.log(Level.INFO, "URLCreation transaction " + sb.toString());
 		

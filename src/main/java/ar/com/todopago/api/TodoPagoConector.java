@@ -57,17 +57,7 @@ public class TodoPagoConector {
 	public final static int developerEndpoint = 0;
 	public final static int productionEndpoint = 1;
 		
-	//QA
-	private final String tenantQA = "t/1.2/";
-	private final String endPointQA = "https://portalqa.visa2.com.ar/";
-	//private final String endPointQA = "https://127.0.0.1:8280/";
-	public final static int QAEndpoint = 3;
-	private String t;
-	
-	//QAlocal
-	private final String endPointQAlocal ="https://127.0.0.1:10443/";
-	public final static int QAEndpointLocal = 4;
-	
+
 	private String ep;
 	private TodoPagoConectorAuthorize authorize;
 	private TodoPagoConectorEchoService echoServiceDSS;
@@ -111,14 +101,6 @@ public class TodoPagoConector {
 			t = tenant;
 			ep = endPointPrd;
 			t = tenant;
-			break;
-		case QAEndpoint:
-			ep = endPointQA;
-			t = tenantQA;
-			break;
-		case QAEndpointLocal:
-			ep = endPointQAlocal;
-			t = null;
 			break;
 		default:
 			t = tenant;
